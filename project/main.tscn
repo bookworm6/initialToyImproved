@@ -38,3 +38,4 @@ position = Vector2(375, -603)
 position = Vector2(3, 583)
 
 [connection signal="jumped" from="player" to="." method="_on_player_jumped"]
+[connection signal="landed" from="player" to="." method="_on_player_landed"]

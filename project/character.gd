@@ -1,5 +1,6 @@
 extends RigidBody2D
 signal jumped
+signal landed
 var screen_size
 var currently_jumping
 var jump_velocity
@@ -67,6 +68,7 @@ func _on_body_entered(body):
 		if in_air==true:
 			currently_jumping = false
 			in_air = false
+			landed.emit()
 			$AnimatedSprite2D.play("land")
 			$landSound.play()
 
