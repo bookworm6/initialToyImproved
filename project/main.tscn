@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bektnnlcpiep5"]
+[gd_scene load_steps=5 format=3 uid="uid://bektnnlcpiep5"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_1ufcn"]
 [ext_resource type="PackedScene" path="res://character.tscn" id="1_cgsbw"]
 [ext_resource type="PackedScene" path="res://floor.tscn" id="2_c8gci"]
-[ext_resource type="PackedScene" path="res://ceiling.tscn" id="3_deud0"]
-[ext_resource type="PackedScene" path="res://wall.tscn" id="4_rvu4g"]
+[ext_resource type="PackedScene" uid="uid://rl55kmk4mn2w" path="res://wall.tscn" id="4_rvu4g"]
 
 [node name="main" type="Node"]
 script = ExtResource("1_1ufcn")
@@ -13,13 +12,7 @@ script = ExtResource("1_1ufcn")
 position = Vector2(361, 1193)
 
 [node name="floor" parent="." instance=ExtResource("2_c8gci")]
-
-[node name="ceiling" parent="." instance=ExtResource("3_deud0")]
-
-[node name="left wall" parent="." instance=ExtResource("4_rvu4g")]
-
-[node name="right wall" parent="." instance=ExtResource("4_rvu4g")]
-position = Vector2(745, 0)
+position = Vector2(334, 1236)
 
 [node name="jumpLabel" type="Label" parent="."]
 offset_left = 584.0
@@ -30,5 +23,18 @@ theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 autowrap_mode = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(381, 668)
+position_smoothing_enabled = true
+
+[node name="left wall" parent="Camera2D" instance=ExtResource("4_rvu4g")]
+position = Vector2(-382, -604)
+
+[node name="right wall" parent="Camera2D" instance=ExtResource("4_rvu4g")]
+position = Vector2(375, -603)
+
+[node name="FallingPoint" type="Node2D" parent="Camera2D"]
+position = Vector2(3, 583)
 
 [connection signal="jumped" from="player" to="." method="_on_player_jumped"]

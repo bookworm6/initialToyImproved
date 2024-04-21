@@ -1,19 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://dw6tlf7lr6n0m"]
+[gd_scene load_steps=3 format=3 uid="uid://rl55kmk4mn2w"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_a0igp"]
 friction = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wsc6e"]
-size = Vector2(5, 1224)
+size = Vector2(3.5, 1352)
 
 [node name="StaticBody2D" type="StaticBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_a0igp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2.5, 612)
+position = Vector2(-3, 671)
 shape = SubResource("RectangleShape2D_wsc6e")
-
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 5.0
-offset_bottom = 1224.0
-color = Color(0, 1, 1, 1)
