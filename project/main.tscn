@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://main.gd" id="1_1ufcn"]
 [ext_resource type="PackedScene" path="res://character.tscn" id="1_cgsbw"]
-[ext_resource type="PackedScene" path="res://floor.tscn" id="2_c8gci"]
+[ext_resource type="PackedScene" uid="uid://cyiidygb4g83n" path="res://floor.tscn" id="2_c8gci"]
 [ext_resource type="PackedScene" uid="uid://rl55kmk4mn2w" path="res://wall.tscn" id="4_rvu4g"]
 
 [node name="main" type="Node"]
@@ -13,16 +13,6 @@ position = Vector2(361, 1193)
 
 [node name="floor" parent="." instance=ExtResource("2_c8gci")]
 position = Vector2(334, 1236)
-
-[node name="jumpLabel" type="Label" parent="."]
-offset_left = 584.0
-offset_top = 12.0
-offset_right = 736.0
-offset_bottom = 88.0
-theme_override_colors/font_color = Color(0, 1, 1, 1)
-theme_override_font_sizes/font_size = 30
-horizontal_alignment = 1
-autowrap_mode = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(381, 668)
@@ -35,7 +25,28 @@ position = Vector2(-382, -604)
 position = Vector2(375, -603)
 
 [node name="FallingPoint" type="Node2D" parent="Camera2D"]
-position = Vector2(3, 583)
+position = Vector2(12, 217)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -245.0
+offset_bottom = 63.0
+grow_horizontal = 0
+
+[node name="jumpLabel" type="Label" parent="CanvasLayer/Control"]
+offset_left = 61.0
+offset_top = 42.0
+offset_right = 213.0
+offset_bottom = 118.0
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [connection signal="jumped" from="player" to="." method="_on_player_jumped"]
 [connection signal="landed" from="player" to="." method="_on_player_landed"]
