@@ -38,6 +38,10 @@ func _physics_process(delta):
 			if position.x<viewportWidth-margin:
 				viewportEntered = true
 	move_and_slide()
+
+func eaten():
+	$AnimationPlayer.play("eaten")
+	
 	
 
 

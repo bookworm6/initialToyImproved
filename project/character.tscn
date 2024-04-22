@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b0la24v561n4m"]
+[gd_scene load_steps=21 format=3 uid="uid://b0la24v561n4m"]
 
 [ext_resource type="Texture2D" uid="uid://c4rkrr8nvin1p" path="res://2d_animation_frog_spritesheet.png" id="1_72oyu"]
 [ext_resource type="Script" path="res://character.gd" id="1_jxwgo"]
@@ -104,6 +104,56 @@ size = Vector2(142, 147)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s6ila"]
 size = Vector2(78, 76)
 
+[sub_resource type="Animation" id="Animation_06qkp"]
+resource_name = "eat_fly"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2.1875, 2.35937), Vector2(2.783, 3), Vector2(2.188, 2.359)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("eatSound")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_q8fcc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.1875, 2.35937)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yd5fg"]
+_data = {
+"RESET": SubResource("Animation_q8fcc"),
+"eat_fly": SubResource("Animation_06qkp")
+}
+
 [node name="player" type="RigidBody2D"]
 z_index = 1
 position = Vector2(377, 767)
@@ -136,8 +186,14 @@ position = Vector2(14, 50)
 position = Vector2(8, -77)
 shape = SubResource("RectangleShape2D_s6ila")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="eatSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_ex5om")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yd5fg")
+}
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

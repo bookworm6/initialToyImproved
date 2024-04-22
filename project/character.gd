@@ -7,6 +7,8 @@ var jump_velocity
 var horizontal_velocity
 var in_air
 var animationFunctionWorking
+var fliesEaten
+var percentFull
 
 
 
@@ -19,6 +21,8 @@ func _ready():
 	contact_monitor = true
 	max_contacts_reported = 1
 	$AnimatedSprite2D.play("walk")
+	fliesEaten = 0
+	percentFull = 1
 	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,6 +39,7 @@ func _physics_process(delta):
 	elif Input.is_action_pressed("move_right"):
 		apply_central_force(Vector2(horizontal_velocity,0))
 		$AnimatedSprite2D.flip_h = true
+	percentFull-=.00001
 		
 func _integrate_forces(state):
 	if Input.is_action_just_pressed("jump"):
@@ -74,3 +79,13 @@ func _on_body_entered(body):
 			$landSound.play()
 			$Area2D.position = Vector2(14,50)
 
+
+
+func _on_area_2d_area_entered(area):
+	if area.get_parent().is_in_group("flies"):
+		area.get_parent().eaten()
+		$AnimationPlayer.play("eat_fly")
+		percentFull+=0.01
+		if percentFull>1:
+			percentFull = 1
+		
