@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwgx11sae5h6b"]
+
+[ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_n5r4v"]
+[ext_resource type="Texture2D" uid="uid://dlr5187a0a2t3" path="res://fly.png" id="2_or1yu"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6rtk4"]
+radius = 192.133
+height = 951.945
+
+[node name="fly" type="CharacterBody2D"]
+scale = Vector2(0.1, 0.1)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_n5r4v")
+
+[node name="Fly" type="Sprite2D" parent="."]
+position = Vector2(222, -199)
+texture = ExtResource("2_or1yu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(94, -46)
+rotation = -1.5865
+shape = SubResource("CapsuleShape2D_6rtk4")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(235, -170)
+scale = Vector2(75.5, 64)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

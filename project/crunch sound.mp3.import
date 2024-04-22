@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ccrrbqad5jr0k"
+path="res://.godot/imported/crunch sound.mp3-0e51f1c1f08b2ff6f062caf26d6d5cac.mp3str"
+
+[deps]
+
+source_file="res://crunch sound.mp3"
+dest_files=["res://.godot/imported/crunch sound.mp3-0e51f1c1f08b2ff6f062caf26d6d5cac.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -55,6 +55,7 @@ func animation():
 		$AnimatedSprite2D.play("jump")
 	elif in_air==true:
 		$AnimatedSprite2D.play("in air")
+		$Area2D.position.y = 0
 	animationFunctionWorking = false
 
 
@@ -64,11 +65,12 @@ func _on_animated_sprite_2d_animation_finished():
 
 
 func _on_body_entered(body):
-	if body.get_name() == "floor":
+	if body.is_in_group("objectToLandOn"):
 		if in_air==true:
 			currently_jumping = false
 			in_air = false
 			landed.emit()
 			$AnimatedSprite2D.play("land")
 			$landSound.play()
+			$Area2D.position = Vector2(14,50)
 

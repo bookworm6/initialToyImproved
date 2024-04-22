@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://5vr8fndbcl1p"]
+[gd_scene load_steps=18 format=3 uid="uid://b0la24v561n4m"]
 
 [ext_resource type="Texture2D" uid="uid://c4rkrr8nvin1p" path="res://2d_animation_frog_spritesheet.png" id="1_72oyu"]
 [ext_resource type="Script" path="res://character.gd" id="1_jxwgo"]
 [ext_resource type="AudioStream" uid="uid://beupp8uuxcccc" path="res://audio/phaseJump1.ogg" id="3_l0yk2"]
 [ext_resource type="AudioStream" uid="uid://c30pnnxixrnlc" path="res://audio/phaserDown3.ogg" id="4_8lq6d"]
+[ext_resource type="AudioStream" uid="uid://ccrrbqad5jr0k" path="res://crunch sound.mp3" id="5_ex5om"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u7wt7"]
 atlas = ExtResource("1_72oyu")
@@ -100,7 +101,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k35ox"]
 size = Vector2(142, 147)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s6ila"]
+size = Vector2(78, 76)
+
 [node name="player" type="RigidBody2D"]
+z_index = 1
 position = Vector2(377, 767)
 mass = 4.0
 lock_rotation = true
@@ -110,7 +115,7 @@ script = ExtResource("1_jxwgo")
 position = Vector2(38, -42.5)
 scale = Vector2(2.1875, 2.35937)
 sprite_frames = SubResource("SpriteFrames_tiec1")
-animation = &"land"
+animation = &"walk"
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -123,6 +128,16 @@ stream = ExtResource("3_l0yk2")
 
 [node name="landSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_8lq6d")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(14, 50)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(8, -77)
+shape = SubResource("RectangleShape2D_s6ila")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_ex5om")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
