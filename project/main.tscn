@@ -1,15 +1,116 @@
-[gd_scene load_steps=6 format=3 uid="uid://bektnnlcpiep5"]
+[gd_scene load_steps=17 format=3 uid="uid://bektnnlcpiep5"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_1ufcn"]
 [ext_resource type="PackedScene" uid="uid://b0la24v561n4m" path="res://character.tscn" id="1_cgsbw"]
 [ext_resource type="PackedScene" uid="uid://cyiidygb4g83n" path="res://floor.tscn" id="2_c8gci"]
+[ext_resource type="Texture2D" uid="uid://bjtffi7r13isr" path="res://Screenshot 2024-04-22 at 6.39.50 PM.png" id="4_2l4on"]
+[ext_resource type="Texture2D" uid="uid://c4rv4a50821ot" path="res://emptyTexture.png" id="4_bc8nc"]
 [ext_resource type="PackedScene" uid="uid://rl55kmk4mn2w" path="res://wall.tscn" id="4_rvu4g"]
 [ext_resource type="PackedScene" uid="uid://d1po040t6p8m7" path="res://lily_pad_one_hop.tscn" id="5_g6qnv"]
+[ext_resource type="Texture2D" uid="uid://fmn56pe35skh" path="res://overTexture.png" id="5_hj6nw"]
+[ext_resource type="PackedScene" uid="uid://bt73dtuq24q2i" path="res://lily_pad_two_hop.tscn" id="6_htyo6"]
+[ext_resource type="Texture2D" uid="uid://4f7wcqhtk3dj" path="res://fillTexture2.png" id="6_t53c2"]
+[ext_resource type="PackedScene" uid="uid://drn1k2e2kwgbh" path="res://log.tscn" id="11_r8idk"]
+
+[sub_resource type="Animation" id="Animation_bacy2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ResetScreen:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Control/TextureProgressBar:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
+}
+
+[sub_resource type="Animation" id="Animation_n2g8b"]
+resource_name = "hide_fell_UI"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ResetScreen:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/ResetScreen")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"hide"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_7d1fa"]
+resource_name = "show_fell_UI"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ResetScreen:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7bnvm"]
+resource_name = "fly_eaten_progress_bar"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Control/TextureProgressBar:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(0.7, 0.7), Vector2(0.5, 0.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_61huj"]
+_data = {
+"RESET": SubResource("Animation_bacy2"),
+"fly_eaten_progress_bar": SubResource("Animation_7bnvm"),
+"hide_fell_UI": SubResource("Animation_n2g8b"),
+"show_fell_UI": SubResource("Animation_7d1fa")
+}
 
 [node name="main" type="Node"]
 script = ExtResource("1_1ufcn")
 
-[node name="floor" parent="." groups=["objectToLandOn"] instance=ExtResource("2_c8gci")]
+[node name="floor" parent="." instance=ExtResource("2_c8gci")]
 position = Vector2(332, -367)
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -33,32 +134,341 @@ anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -253.0
-offset_top = 11.0
+offset_top = 40.0
 offset_right = -8.0
-offset_bottom = 74.0
+offset_bottom = 103.0
 grow_horizontal = 0
 metadata/_edit_use_anchors_ = true
 
 [node name="jumpLabel" type="Label" parent="CanvasLayer/Control"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -1.1746
+anchor_right = 0.102041
+anchor_bottom = -1.1746
 offset_left = 61.0
 offset_top = 42.0
 offset_right = 213.0
 offset_bottom = 118.0
-theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_colors/font_color = Color(0.705882, 0.537255, 0.231373, 1)
 theme_override_font_sizes/font_size = 30
+text = "Percent Full"
 horizontal_alignment = 1
 autowrap_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="lilyPadOneHop" parent="." instance=ExtResource("5_g6qnv")]
-position = Vector2(139, -730)
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = -19.0
+offset_right = 252.0
+offset_bottom = 175.0
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(100, 100)
+value = 100.0
+fill_mode = 5
+texture_under = ExtResource("4_bc8nc")
+texture_over = ExtResource("5_hj6nw")
+texture_progress = ExtResource("6_t53c2")
+
+[node name="ResetScreen" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.0
+offset_top = -267.5
+offset_right = -2.0
+offset_bottom = -267.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+
+[node name="PondBackground" type="Sprite2D" parent="CanvasLayer/ResetScreen"]
+scale = Vector2(0.38, 0.38)
+texture = ExtResource("4_2l4on")
+
+[node name="Label" type="Label" parent="CanvasLayer/ResetScreen"]
+layout_mode = 0
+offset_left = -184.0
+offset_top = -164.0
+offset_right = 201.0
+offset_bottom = -105.0
+theme_override_font_sizes/font_size = 20
+text = "Uh-oh... You fell!
+Fortunately, the lily pads are regrowing.
+"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/ResetScreen"]
+layout_mode = 0
+offset_left = -66.0
+offset_top = -39.0
+offset_right = 64.0
+offset_bottom = 24.0
+theme_override_font_sizes/font_size = 40
+text = "OK"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_61huj")
+}
 
 [node name="player" parent="." instance=ExtResource("1_cgsbw")]
 position = Vector2(363, -412)
 
 [node name="SpawnTimer" type="Timer" parent="."]
 
+[node name="lilyPadOneHop" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(261, -814)
+
+[node name="lilyPadTwoHop" parent="." instance=ExtResource("6_htyo6")]
+position = Vector2(570, -1044)
+
+[node name="lilyPadOneHop2" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(388, -1150)
+
+[node name="lilyPadOneHop3" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(170, -1543)
+
+[node name="lilyPadOneHop4" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(629, -1824)
+
+[node name="lilyPadOneHop5" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(145, -2094)
+
+[node name="lilyPadOneHop6" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(516, -2576)
+
+[node name="lilyPadOneHop7" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(552, -2224)
+
+[node name="lilyPadOneHop9" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(119, -2856)
+
+[node name="lilyPadOneHop10" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(637, -2999)
+
+[node name="lilyPadOneHop11" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(328, -3290)
+
+[node name="lilyPadTwoHop2" parent="." instance=ExtResource("6_htyo6")]
+position = Vector2(183, -3568)
+
+[node name="lilyPadOneHop12" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(506, -3970)
+
+[node name="lilyPadOneHop8" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(43, -4188)
+
+[node name="lilyPadOneHop13" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(485, -4369)
+
+[node name="lilyPadOneHop14" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(20, -4700)
+
+[node name="lilyPadOneHop15" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(454, -5049)
+
+[node name="lilyPadOneHop16" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(150, -5155)
+
+[node name="lilyPadOneHop17" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(403, -5591)
+
+[node name="lilyPadOneHop18" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(132, -5873)
+
+[node name="lilyPadOneHop19" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(508, -6175)
+
+[node name="lilyPadOneHop20" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(20, -6308)
+
+[node name="lilyPadOneHop21" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(397, -6607)
+
+[node name="lilyPadTwoHop3" parent="." instance=ExtResource("6_htyo6")]
+position = Vector2(91, -6910)
+
+[node name="lilyPadOneHop22" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(426, -7184)
+
+[node name="lilyPadOneHop23" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(86, -7415)
+
+[node name="lilyPadOneHop24" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(404, -7707)
+
+[node name="lilyPadOneHop25" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(129, -8075)
+
+[node name="lilyPadOneHop26" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(494, -8697)
+
+[node name="lilyPadOneHop27" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(530, -8345)
+
+[node name="lilyPadOneHop28" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(97, -8977)
+
+[node name="lilyPadOneHop30" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(306, -9411)
+
+[node name="lilyPadTwoHop4" parent="." instance=ExtResource("6_htyo6")]
+position = Vector2(256, -9715)
+
+[node name="log" parent="." instance=ExtResource("11_r8idk")]
+position = Vector2(487, -9957)
+
+[node name="lilyPadOneHop32" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(156, -10501)
+
+[node name="lilyPadOneHop33" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(398, -11165)
+
+[node name="lilyPadOneHop29" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(130, -11413)
+
+[node name="lilyPadTwoHop5" parent="." instance=ExtResource("6_htyo6")]
+position = Vector2(576, -9539)
+
+[node name="log2" parent="." instance=ExtResource("11_r8idk")]
+position = Vector2(224, -10330)
+
+[node name="log3" parent="." instance=ExtResource("11_r8idk")]
+position = Vector2(420, -10831)
+
+[node name="lilyPadOneHop31" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(430, -11487)
+
+[node name="lilyPadOneHop34" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(-54, -11757)
+
+[node name="lilyPadOneHop35" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(317, -12239)
+
+[node name="lilyPadOneHop36" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(353, -11887)
+
+[node name="lilyPadOneHop37" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(438, -12662)
+
+[node name="lilyPadOneHop38" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(129, -12953)
+
+[node name="log4" parent="." instance=ExtResource("11_r8idk")]
+position = Vector2(412, -13224)
+
+[node name="lilyPadOneHop39" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(500, -13719)
+
+[node name="lilyPadTwoHop6" parent="." instance=ExtResource("6_htyo6")]
+position = Vector2(355, -13997)
+
+[node name="lilyPadOneHop40" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(678, -14399)
+
+[node name="lilyPadOneHop41" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(215, -14617)
+
+[node name="lilyPadOneHop42" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(657, -14798)
+
+[node name="lilyPadOneHop43" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(192, -15129)
+
+[node name="lilyPadOneHop44" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(626, -15478)
+
+[node name="lilyPadOneHop45" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(322, -15584)
+
+[node name="lilyPadOneHop46" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(575, -16020)
+
+[node name="lilyPadOneHop47" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(304, -16302)
+
+[node name="lilyPadOneHop48" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(680, -16604)
+
+[node name="lilyPadOneHop49" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(192, -16737)
+
+[node name="lilyPadOneHop50" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(569, -17036)
+
+[node name="lilyPadTwoHop7" parent="." instance=ExtResource("6_htyo6")]
+position = Vector2(263, -17339)
+
+[node name="lilyPadOneHop51" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(614, -17656)
+
+[node name="lilyPadOneHop52" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(220, -18689)
+
+[node name="lilyPadOneHop53" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(179, -18065)
+
+[node name="lilyPadOneHop54" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(651, -18520)
+
+[node name="lilyPadOneHop55" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(187, -19105)
+
+[node name="log5" parent="." instance=ExtResource("11_r8idk")]
+position = Vector2(499, -19538)
+
+[node name="lilyPadOneHop56" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(587, -20033)
+
+[node name="lilyPadTwoHop8" parent="." instance=ExtResource("6_htyo6")]
+position = Vector2(442, -20311)
+
+[node name="lilyPadOneHop57" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(765, -20713)
+
+[node name="lilyPadOneHop58" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(302, -20931)
+
+[node name="lilyPadOneHop59" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(744, -21112)
+
+[node name="lilyPadOneHop60" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(279, -21443)
+
+[node name="lilyPadOneHop61" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(713, -21792)
+
+[node name="lilyPadOneHop62" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(409, -21898)
+
+[node name="lilyPadOneHop63" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(662, -22334)
+
+[node name="log6" parent="." instance=ExtResource("11_r8idk")]
+position = Vector2(376.001, -22577)
+rotation = 0.617847
+
+[node name="log7" parent="." instance=ExtResource("11_r8idk")]
+position = Vector2(777, -22887)
+
+[node name="lilyPadOneHop64" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(657, -23624)
+
+[node name="lilyPadTwoHop9" parent="." instance=ExtResource("6_htyo6")]
+position = Vector2(219, -23243)
+
+[node name="lilyPadOneHop65" parent="." instance=ExtResource("5_g6qnv")]
+position = Vector2(260, -19355)
+
+[connection signal="pressed" from="CanvasLayer/ResetScreen/Button" to="." method="_on_button_pressed"]
+[connection signal="ateFly" from="player" to="." method="_on_player_ate_fly"]
 [connection signal="jumped" from="player" to="." method="_on_player_jumped"]
 [connection signal="landed" from="player" to="." method="_on_player_landed"]
+[connection signal="reset" from="player" to="." method="_on_reset"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

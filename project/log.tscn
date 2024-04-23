@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://drn1k2e2kwgbh"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bkhjm"]
+load_path = "res://.godot/imported/log.png-ceb69f9008db4302194fa216d066e998.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5yodp"]
+size = Vector2(366, 140)
+
+[node name="log" type="StaticBody2D" groups=["objectToLandOn"]]
+
+[node name="Log" type="Sprite2D" parent="."]
+position = Vector2(10, 15)
+texture = SubResource("CompressedTexture2D_bkhjm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(11, 16)
+shape = SubResource("RectangleShape2D_5yodp")

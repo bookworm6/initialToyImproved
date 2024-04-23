@@ -1,9 +1,10 @@
 extends StaticBody2D
 
+var hopsLeft
 var disapeared
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	hopsLeft = 2
 	disapeared = false
 
 
@@ -11,21 +12,22 @@ func _ready():
 func _process(delta):
 	pass
 
-
 func _on_area_2d_body_exited(body):
 	if body is RigidBody2D:
 		if body.justJumped == true:
-			disapeared = true
-			$CollisionShape2D.set_deferred("disabled",true)
-			$AnimationPlayer.play("disapear")
+			hopsLeft-=1
+			if hopsLeft<=0:
+				$CollisionShape2D.set_deferred("disabled",true)
+				disapeared = true
+				$AnimationPlayer.play("disapear")
 
 func reset():
-	print("reset function called")
+	hopsLeft = 2
 	if disapeared == true:
 		show()
 		$CollisionShape2D.set_deferred("disabled",false)
 		$AnimationPlayer.play("apear")
 		disapeared = false
 		
-	
+		
 	

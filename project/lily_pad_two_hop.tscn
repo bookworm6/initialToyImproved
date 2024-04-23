@@ -1,15 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://d1po040t6p8m7"]
+[gd_scene load_steps=9 format=3 uid="uid://bt73dtuq24q2i"]
 
-[ext_resource type="Script" path="res://StaticBody2D.gd" id="1_50764"]
-[ext_resource type="Texture2D" uid="uid://cb8sskkm80i6c" path="res://lilyPad.png" id="2_v6oa0"]
+[ext_resource type="Texture2D" uid="uid://bpkxdvv4cf531" path="res://lilypadWithFlower.png" id="1_3svso"]
+[ext_resource type="Script" path="res://lily_pad_two_hop.gd" id="1_725pj"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lnncj"]
-size = Vector2(668, 146)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trow2"]
+size = Vector2(812, 138)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vw7jn"]
-size = Vector2(543.333, 105)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0iewx"]
+size = Vector2(763, 82)
 
-[sub_resource type="Animation" id="Animation_311x8"]
+[sub_resource type="Animation" id="Animation_o3xm4"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -21,10 +21,10 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.3, 0.3)]
+"values": [Vector2(0.4, 0.4)]
 }
 
-[sub_resource type="Animation" id="Animation_vkm0a"]
+[sub_resource type="Animation" id="Animation_t5ho5"]
 resource_name = "apear"
 length = 1.6
 tracks/0/type = "value"
@@ -37,10 +37,10 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1e-05, 1e-05), Vector2(0.3, 0.3)]
+"values": [Vector2(1e-05, 1e-05), Vector2(0.4, 0.4)]
 }
 
-[sub_resource type="Animation" id="Animation_ixwlv"]
+[sub_resource type="Animation" id="Animation_4gw8b"]
 resource_name = "disapear"
 length = 0.6
 tracks/0/type = "value"
@@ -53,7 +53,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0.3, 0.3), Vector2(1e-05, 1e-05)]
+"values": [Vector2(0.4, 0.4), Vector2(1e-05, 1e-05)]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -70,36 +70,36 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_1uasp"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4mrjm"]
 _data = {
-"RESET": SubResource("Animation_311x8"),
-"apear": SubResource("Animation_vkm0a"),
-"disapear": SubResource("Animation_ixwlv")
+"RESET": SubResource("Animation_o3xm4"),
+"apear": SubResource("Animation_t5ho5"),
+"disapear": SubResource("Animation_4gw8b")
 }
 
-[node name="lilyPadOneHop" type="StaticBody2D" groups=["objectToLandOn"]]
-scale = Vector2(0.3, 0.3)
-script = ExtResource("1_50764")
+[node name="lilyPadTwoHop" type="StaticBody2D" groups=["objectToLandOn"]]
+scale = Vector2(0.4, 0.4)
+script = ExtResource("1_725pj")
 
-[node name="LilyPad" type="Sprite2D" parent="."]
-position = Vector2(6, 36)
-scale = Vector2(0.639824, 0.596364)
-texture = ExtResource("2_v6oa0")
+[node name="LilypadWithFlower" type="Sprite2D" parent="."]
+position = Vector2(1, 1)
+scale = Vector2(0.859906, 0.764535)
+texture = ExtResource("1_3svso")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(6, 73)
-shape = SubResource("RectangleShape2D_lnncj")
+position = Vector2(-4.00003, 70)
+shape = SubResource("RectangleShape2D_trow2")
 one_way_collision = true
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 43.3333)
-shape = SubResource("RectangleShape2D_vw7jn")
+position = Vector2(-1, 13)
+shape = SubResource("RectangleShape2D_0iewx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_1uasp")
+"": SubResource("AnimationLibrary_4mrjm")
 }
 
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

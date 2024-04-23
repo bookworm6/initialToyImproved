@@ -1,10 +1,12 @@
-[gd_scene load_steps=21 format=3 uid="uid://b0la24v561n4m"]
+[gd_scene load_steps=23 format=3 uid="uid://b0la24v561n4m"]
 
 [ext_resource type="Texture2D" uid="uid://c4rkrr8nvin1p" path="res://2d_animation_frog_spritesheet.png" id="1_72oyu"]
 [ext_resource type="Script" path="res://character.gd" id="1_jxwgo"]
 [ext_resource type="AudioStream" uid="uid://beupp8uuxcccc" path="res://audio/phaseJump1.ogg" id="3_l0yk2"]
 [ext_resource type="AudioStream" uid="uid://c30pnnxixrnlc" path="res://audio/phaserDown3.ogg" id="4_8lq6d"]
 [ext_resource type="AudioStream" uid="uid://ccrrbqad5jr0k" path="res://crunch sound.mp3" id="5_ex5om"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sce8i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u7wt7"]
 atlas = ExtResource("1_72oyu")
@@ -104,6 +106,33 @@ size = Vector2(142, 147)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s6ila"]
 size = Vector2(78, 76)
 
+[sub_resource type="Animation" id="Animation_q8fcc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.1875, 2.35937)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:physics_material_override:friction")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
 [sub_resource type="Animation" id="Animation_06qkp"]
 resource_name = "eat_fly"
 tracks/0/type = "value"
@@ -133,31 +162,48 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_q8fcc"]
-length = 0.001
-tracks/0/type = "value"
+[sub_resource type="Animation" id="Animation_4455e"]
+resource_name = "land"
+length = 0.5
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/path = NodePath("AnimatedSprite2D")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"\"land\"", 1.0, false],
+"method": &"play"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:physics_material_override:friction")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(2.1875, 2.35937)]
+"values": [0.3]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yd5fg"]
 _data = {
 "RESET": SubResource("Animation_q8fcc"),
-"eat_fly": SubResource("Animation_06qkp")
+"eat_fly": SubResource("Animation_06qkp"),
+"land": SubResource("Animation_4455e")
 }
 
 [node name="player" type="RigidBody2D"]
 z_index = 1
 position = Vector2(377, 767)
 mass = 4.0
+physics_material_override = SubResource("PhysicsMaterial_sce8i")
 lock_rotation = true
 script = ExtResource("1_jxwgo")
 
@@ -165,7 +211,9 @@ script = ExtResource("1_jxwgo")
 position = Vector2(38, -42.5)
 scale = Vector2(2.1875, 2.35937)
 sprite_frames = SubResource("SpriteFrames_tiec1")
-animation = &"walk"
+animation = &"land"
+frame = 3
+frame_progress = 1.0
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -194,6 +242,15 @@ libraries = {
 "": SubResource("AnimationLibrary_yd5fg")
 }
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.119
+
+[node name="FrictionTimer" type="Timer" parent="."]
+wait_time = 0.103
+one_shot = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="FrictionTimer" to="." method="_on_friction_timer_timeout"]
