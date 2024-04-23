@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bektnnlcpiep5"]
+[gd_scene load_steps=18 format=3 uid="uid://bektnnlcpiep5"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_1ufcn"]
 [ext_resource type="PackedScene" uid="uid://b0la24v561n4m" path="res://character.tscn" id="1_cgsbw"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bt73dtuq24q2i" path="res://lily_pad_two_hop.tscn" id="6_htyo6"]
 [ext_resource type="Texture2D" uid="uid://4f7wcqhtk3dj" path="res://fillTexture2.png" id="6_t53c2"]
 [ext_resource type="PackedScene" uid="uid://drn1k2e2kwgbh" path="res://log.tscn" id="11_r8idk"]
+[ext_resource type="PackedScene" uid="uid://c880vsdui3oqr" path="res://lilly_pad_final.tscn" id="12_qfhlx"]
 
 [sub_resource type="Animation" id="Animation_bacy2"]
 length = 0.001
@@ -37,6 +38,22 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0.5, 0.5)]
+}
+
+[sub_resource type="Animation" id="Animation_7bnvm"]
+resource_name = "fly_eaten_progress_bar"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Control/TextureProgressBar:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(0.7, 0.7), Vector2(0.5, 0.5)]
 }
 
 [sub_resource type="Animation" id="Animation_n2g8b"]
@@ -81,22 +98,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_7bnvm"]
-resource_name = "fly_eaten_progress_bar"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/Control/TextureProgressBar:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0.5, 0.5), Vector2(0.7, 0.7), Vector2(0.5, 0.5)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_61huj"]
@@ -218,9 +219,13 @@ libraries = {
 }
 
 [node name="player" parent="." instance=ExtResource("1_cgsbw")]
-position = Vector2(363, -412)
+position = Vector2(679, -23175)
 
 [node name="SpawnTimer" type="Timer" parent="."]
+
+[node name="LillyPadFinal" parent="." instance=ExtResource("12_qfhlx")]
+position = Vector2(439, -23916)
+scale = Vector2(0.7, 0.7)
 
 [node name="lilyPadOneHop" parent="." instance=ExtResource("5_g6qnv")]
 position = Vector2(261, -814)

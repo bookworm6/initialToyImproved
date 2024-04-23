@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://c880vsdui3oqr"]
+
+[ext_resource type="Script" path="res://LillyPadFinal.gd" id="1_tnkgw"]
+[ext_resource type="Texture2D" uid="uid://d1gidcfqcbbf8" path="res://finalLillyPad.png" id="2_a0fnq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x2dt3"]
+size = Vector2(864, 72)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ei6h"]
+size = Vector2(859, 57)
+
+[node name="LillyPadFinal" type="StaticBody2D" groups=["objectToLandOn"]]
+script = ExtResource("1_tnkgw")
+
+[node name="FinalLillyPad" type="Sprite2D" parent="."]
+position = Vector2(-2, 3)
+texture = ExtResource("2_a0fnq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-28, 34)
+shape = SubResource("RectangleShape2D_x2dt3")
+one_way_collision = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-26.5, 18.5)
+shape = SubResource("RectangleShape2D_3ei6h")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

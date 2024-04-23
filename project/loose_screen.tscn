@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://csjlrdmlknpv1"]
+
+[ext_resource type="Texture2D" uid="uid://bjtffi7r13isr" path="res://Screenshot 2024-04-22 at 6.39.50 PM.png" id="1_3bq04"]
+
+[node name="LooseScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Screenshot2024-04-22At6_39_50 pm" type="Sprite2D" parent="."]
+position = Vector2(-214, 697)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("1_3bq04")
