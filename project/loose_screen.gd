@@ -9,6 +9,8 @@ func _ready():
 		$Label.text = "You ate no flies, so you naturally died"
 	else:
 		$Label.text = "You ate "+str(Global.fliesEaten)+" flies, yet it was not enough."
+	$HeightLabel.text = "Height: \n"+str(Global.height)
+	$RecordHeightLabel.text = "Record Height: \n"+str(Global.recordHeight)
 	$AnimationPlayer.play("fade_in")
 
 

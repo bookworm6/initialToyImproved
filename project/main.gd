@@ -24,6 +24,8 @@ func _physics_process(delta):
 	if percentFull<=0:
 		$CanvasLayer/Fader.show()
 		$AnimationPlayer.play("fade_out_to_dead")
+	Global.height = int((abs($player.position.y)-410)/100)
+	$CanvasLayer/Control/HeightLabel.text = "Height: "+str(Global.height)
 	
 		
 

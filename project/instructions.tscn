@@ -98,6 +98,7 @@ scale = Vector2(1.4, 1.4)
 texture = ExtResource("2_p3wr3")
 
 [node name="Label" type="Label" parent="."]
+layout_mode = 0
 offset_left = 55.0
 offset_right = 714.0
 offset_bottom = 285.0
@@ -109,6 +110,7 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="Label2" type="Label" parent="."]
+layout_mode = 0
 offset_left = 63.0
 offset_top = 218.0
 offset_right = 722.0
@@ -119,6 +121,7 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="Button" type="Button" parent="."]
+layout_mode = 0
 offset_left = 197.0
 offset_top = 1113.0
 offset_right = 530.0
@@ -157,7 +160,7 @@ theme_override_font_sizes/font_size = 40
 text = "Controls"
 
 [node name="ColorRect" type="ColorRect" parent="."]
-visible = false
+layout_mode = 0
 offset_right = 772.0
 offset_bottom = 1378.0
 color = Color(0, 0, 0, 1)

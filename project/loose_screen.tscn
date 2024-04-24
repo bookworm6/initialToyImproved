@@ -124,14 +124,15 @@ autowrap_mode = 2
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 213.0
-offset_top = 819.0
-offset_right = 546.0
-offset_bottom = 1014.0
+offset_left = 216.0
+offset_top = 835.0
+offset_right = 549.0
+offset_bottom = 1030.0
 theme_override_font_sizes/font_size = 60
 text = "RESTART"
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 layout_mode = 0
 offset_right = 772.0
 offset_bottom = 1378.0
@@ -141,5 +142,29 @@ color = Color(0, 0, 0, 1)
 libraries = {
 "": SubResource("AnimationLibrary_jyrwl")
 }
+
+[node name="HeightLabel" type="Label" parent="."]
+offset_left = 91.0
+offset_top = 437.0
+offset_right = 750.0
+offset_bottom = 722.0
+theme_override_font_sizes/font_size = 40
+text = "Height:
+10000
+"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="RecordHeightLabel" type="Label" parent="."]
+offset_left = 93.0
+offset_top = 594.0
+offset_right = 752.0
+offset_bottom = 879.0
+theme_override_font_sizes/font_size = 40
+text = "Record Height:
+10000
+"
+vertical_alignment = 1
+autowrap_mode = 2
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
