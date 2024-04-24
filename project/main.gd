@@ -2,7 +2,6 @@ extends Node
 var highestLocationReached
 var falling
 var flyScene
-var fliesEaten
 var percentFull
 
 # Called when the node enters the scene tree for the first time.
@@ -10,8 +9,9 @@ func _ready():
 	flyScene = preload("res://fly.tscn")
 	highestLocationReached = $player.position.y
 	$SpawnTimer.start()
-	fliesEaten = 0
 	percentFull=100
+	Global.fliesEaten = 0
+	$AnimationPlayer.play("fade_in")
 
 func _physics_process(delta):
 	$Camera2D.global_position.y = $player.get_global_position().y-$Camera2D/FallingPoint.get_position().y
@@ -21,6 +21,9 @@ func _physics_process(delta):
 		$player.falling = true
 	percentFull-=.03
 	$CanvasLayer/Control/TextureProgressBar.value = percentFull
+	if percentFull<=0:
+		$Fader.show()
+		$AnimationPlayer.play("fade_out_to_dead")
 	
 		
 
@@ -55,9 +58,24 @@ func _on_button_pressed():
 
 func _on_player_ate_fly():
 	$AnimationPlayer.play("fly_eaten_progress_bar")
-	fliesEaten+=1
+	Global.fliesEaten+=1
 	if percentFull<100:
 		percentFull+=6
 	if percentFull>100:
 		percentFull=100
-	
+
+func changeSceneToDead():
+	get_tree().change_scene_to_file("res://loose_screen.tscn")
+
+
+func _on_lilly_pad_final_win():
+	$CanvasLayer/WinScreen.show()
+	$AnimationPlayer.play("show_win")
+
+
+func _on_win_button_pressed():
+	$CanvasLayer/Fader.show()
+	$AnimationPlayer.play("win_restart")
+
+func restart():
+	get_tree().reload_current_scene ( )

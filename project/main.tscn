@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bektnnlcpiep5"]
+[gd_scene load_steps=22 format=3 uid="uid://bektnnlcpiep5"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_1ufcn"]
 [ext_resource type="PackedScene" uid="uid://b0la24v561n4m" path="res://character.tscn" id="1_cgsbw"]
@@ -38,6 +38,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0.5, 0.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Fader/ColorRect:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/WinScreen:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
 }
 
 [sub_resource type="Animation" id="Animation_7bnvm"]
@@ -100,12 +124,118 @@ tracks/0/keys = {
 "values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_isqrb"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Fader/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Fader")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"hide"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_v24qm"]
+resource_name = "fade_out_to_dead"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Fader/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"changeSceneToDead"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_2vj4f"]
+resource_name = "show_win"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/WinScreen:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_x702g"]
+resource_name = "win_restart"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Fader/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"restart"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_61huj"]
 _data = {
 "RESET": SubResource("Animation_bacy2"),
+"fade_in": SubResource("Animation_isqrb"),
+"fade_out_to_dead": SubResource("Animation_v24qm"),
 "fly_eaten_progress_bar": SubResource("Animation_7bnvm"),
 "hide_fell_UI": SubResource("Animation_n2g8b"),
-"show_fell_UI": SubResource("Animation_7d1fa")
+"show_fell_UI": SubResource("Animation_7d1fa"),
+"show_win": SubResource("Animation_2vj4f"),
+"win_restart": SubResource("Animation_x702g")
 }
 
 [node name="main" type="Node"]
@@ -213,6 +343,60 @@ offset_bottom = 24.0
 theme_override_font_sizes/font_size = 40
 text = "OK"
 
+[node name="WinScreen" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.0
+offset_top = -367.5
+offset_right = -2.0
+offset_bottom = -367.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+
+[node name="PondBackground" type="Sprite2D" parent="CanvasLayer/WinScreen"]
+scale = Vector2(0.38, 0.38)
+texture = ExtResource("4_2l4on")
+
+[node name="Label" type="Label" parent="CanvasLayer/WinScreen"]
+layout_mode = 0
+offset_left = -184.0
+offset_top = -164.0
+offset_right = 180.0
+offset_bottom = 19.0
+theme_override_font_sizes/font_size = 20
+text = "You can hang out here forever with infinite food!
+You no longer need to fight just to survive!!
+However, if you enjoy the fight for survival, you may restart
+"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/WinScreen"]
+layout_mode = 0
+offset_left = -101.0
+offset_top = 41.0
+offset_right = 115.0
+offset_bottom = 118.0
+theme_override_font_sizes/font_size = 50
+text = "RESTART"
+
+[node name="Fader" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 748.0
+offset_bottom = 1339.0
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Fader"]
+layout_mode = 0
+offset_right = 771.0
+offset_bottom = 1355.0
+color = Color(0, 0, 0, 1)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_61huj")
@@ -224,7 +408,7 @@ position = Vector2(679, -23175)
 [node name="SpawnTimer" type="Timer" parent="."]
 
 [node name="LillyPadFinal" parent="." instance=ExtResource("12_qfhlx")]
-position = Vector2(439, -23916)
+position = Vector2(379, -23912)
 scale = Vector2(0.7, 0.7)
 
 [node name="lilyPadOneHop" parent="." instance=ExtResource("5_g6qnv")]
@@ -444,7 +628,7 @@ position = Vector2(302, -20931)
 position = Vector2(744, -21112)
 
 [node name="lilyPadOneHop60" parent="." instance=ExtResource("5_g6qnv")]
-position = Vector2(279, -21443)
+position = Vector2(68, -21443)
 
 [node name="lilyPadOneHop61" parent="." instance=ExtResource("5_g6qnv")]
 position = Vector2(713, -21792)
@@ -472,8 +656,10 @@ position = Vector2(219, -23243)
 position = Vector2(260, -19355)
 
 [connection signal="pressed" from="CanvasLayer/ResetScreen/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/WinScreen/Button" to="." method="_on_win_button_pressed"]
 [connection signal="ateFly" from="player" to="." method="_on_player_ate_fly"]
 [connection signal="jumped" from="player" to="." method="_on_player_jumped"]
 [connection signal="landed" from="player" to="." method="_on_player_landed"]
 [connection signal="reset" from="player" to="." method="_on_reset"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="win" from="LillyPadFinal" to="." method="_on_lilly_pad_final_win"]
