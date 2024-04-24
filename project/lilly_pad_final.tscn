@@ -1,13 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://c880vsdui3oqr"]
+[gd_scene load_steps=8 format=3 uid="uid://c880vsdui3oqr"]
 
 [ext_resource type="Script" path="res://LillyPadFinal.gd" id="1_tnkgw"]
 [ext_resource type="Texture2D" uid="uid://bafunnbbnldjk" path="res://newLillyPadFinal.png" id="2_kcuev"]
+[ext_resource type="Texture2D" uid="uid://drk47hn1kqrgw" path="res://star_02.png" id="3_fnf4u"]
+[ext_resource type="AudioStream" uid="uid://cokn6da7v4qkr" path="res://fairy sound effect - 2_10_24, 4.44 PM.mp3" id="4_hi7fm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x2dt3"]
 size = Vector2(864, 72)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ei6h"]
 size = Vector2(859, 57)
+
+[sub_resource type="Gradient" id="Gradient_wb17g"]
+offsets = PackedFloat32Array(0, 0.297952, 1)
+colors = PackedColorArray(0.952941, 0.827451, 0, 1, 0.952941, 0.827451, 0, 1, 0.952941, 0.827451, 0, 0)
 
 [node name="LillyPadFinal" type="StaticBody2D" groups=["objectToLandOn"]]
 script = ExtResource("1_tnkgw")
@@ -27,5 +33,24 @@ one_way_collision = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-26.5, 18.5)
 shape = SubResource("RectangleShape2D_3ei6h")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(-12, 3)
+emitting = false
+amount = 30
+lifetime = 1.5
+one_shot = true
+texture = ExtResource("3_fnf4u")
+emission_shape = 3
+emission_rect_extents = Vector2(500, 1)
+gravity = Vector2(0, -1000)
+scale_amount_min = 0.2
+scale_amount_max = 0.24
+color = Color(0.952941, 0.827451, 0, 1)
+color_ramp = SubResource("Gradient_wb17g")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-12, 3)
+stream = ExtResource("4_hi7fm")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

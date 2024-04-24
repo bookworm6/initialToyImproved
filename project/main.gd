@@ -22,7 +22,7 @@ func _physics_process(delta):
 	percentFull-=.03
 	$CanvasLayer/Control/TextureProgressBar.value = percentFull
 	if percentFull<=0:
-		$Fader.show()
+		$CanvasLayer/Fader.show()
 		$AnimationPlayer.play("fade_out_to_dead")
 	
 		

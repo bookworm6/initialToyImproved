@@ -17,4 +17,6 @@ func reset():
 func _on_area_2d_body_entered(body):
 	if body is RigidBody2D:
 		if body.get_linear_velocity().y>0:
+			$CPUParticles2D.emitting = true
+			$AudioStreamPlayer2D.play()
 			win.emit()

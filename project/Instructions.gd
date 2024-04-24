@@ -3,12 +3,6 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if Global.fliesEaten == 1:
-		$Label.text = "You ate 1 fly, but it was not enough"
-	elif Global.fliesEaten == 0:
-		$Label.text = "You ate no flies, so you naturally died"
-	else:
-		$Label.text = "You ate "+str(Global.fliesEaten)+" flies, yet it was not enough."
 	$AnimationPlayer.play("fade_in")
 
 

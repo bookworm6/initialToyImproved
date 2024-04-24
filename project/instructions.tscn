@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://csjlrdmlknpv1"]
+[gd_scene load_steps=7 format=3 uid="uid://beywdcga0y3pr"]
 
-[ext_resource type="Texture2D" uid="uid://bjtffi7r13isr" path="res://Screenshot 2024-04-22 at 6.39.50 PM.png" id="1_3bq04"]
-[ext_resource type="Script" path="res://loose_screen.gd" id="1_wkoux"]
+[ext_resource type="Script" path="res://Instructions.gd" id="1_8mrak"]
+[ext_resource type="Texture2D" uid="uid://bjtffi7r13isr" path="res://Screenshot 2024-04-22 at 6.39.50 PM.png" id="2_p3wr3"]
 
 [sub_resource type="Animation" id="Animation_nlski"]
 length = 0.001
@@ -83,63 +83,83 @@ _data = {
 "fade_out": SubResource("Animation_4ocry")
 }
 
-[node name="LooseScreen" type="Control"]
+[node name="Instructions" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_wkoux")
+script = ExtResource("1_8mrak")
 
 [node name="Screenshot2024-04-22At6_39_50 pm" type="Sprite2D" parent="."]
 position = Vector2(-214, 697)
 scale = Vector2(1.4, 1.4)
-texture = ExtResource("1_3bq04")
+texture = ExtResource("2_p3wr3")
 
 [node name="Label" type="Label" parent="."]
-layout_mode = 0
 offset_left = 55.0
 offset_right = 714.0
 offset_bottom = 285.0
-theme_override_font_sizes/font_size = 50
-text = "You ate 10000 flies, yet it was not enough.
+theme_override_font_sizes/font_size = 100
+text = "Fly Muncher
 "
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="Label2" type="Label" parent="."]
-layout_mode = 0
 offset_left = 63.0
 offset_top = 218.0
 offset_right = 722.0
 offset_bottom = 503.0
-theme_override_font_sizes/font_size = 50
-text = "I hope your I hope your reincarnation has better luck 
-"
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 40
+text = "Hop on the lilypads to get to the final lilypad, where you will never starve. But be warned, if you don't eat enough flies along the way, you can die of starvation."
 vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_left = 213.0
-offset_top = 819.0
-offset_right = 546.0
-offset_bottom = 1014.0
+offset_left = 197.0
+offset_top = 1113.0
+offset_right = 530.0
+offset_bottom = 1308.0
 theme_override_font_sizes/font_size = 60
-text = "RESTART"
-
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 0
-offset_right = 772.0
-offset_bottom = 1378.0
-color = Color(0, 0, 0, 1)
+text = "START"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_jyrwl")
 }
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 95.0
+offset_top = 673.0
+offset_right = 378.0
+offset_bottom = 1030.0
+theme_override_font_sizes/font_size = 30
+text = "Move left and right:
+Arrow keys or A and D
+
+Jump :
+Spacebar
+
+Eat a fly :
+Collide with the fly"
+
+[node name="Label4" type="Label" parent="."]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 597.0
+offset_right = 255.0
+offset_bottom = 652.0
+theme_override_font_sizes/font_size = 40
+text = "Controls"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_right = 772.0
+offset_bottom = 1378.0
+color = Color(0, 0, 0, 1)
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
