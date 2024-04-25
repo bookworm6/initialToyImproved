@@ -122,10 +122,10 @@ autowrap_mode = 2
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 197.0
-offset_top = 1113.0
-offset_right = 530.0
-offset_bottom = 1308.0
+offset_left = 202.0
+offset_top = 1111.0
+offset_right = 535.0
+offset_bottom = 1246.0
 theme_override_font_sizes/font_size = 60
 text = "START"
 
@@ -158,6 +158,17 @@ offset_right = 255.0
 offset_bottom = 652.0
 theme_override_font_sizes/font_size = 40
 text = "Controls"
+
+[node name="Label5" type="Label" parent="."]
+layout_mode = 0
+offset_left = 446.0
+offset_top = 590.0
+offset_right = 758.0
+offset_bottom = 1028.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+text = "If you fall, it's ok. If you fall more than 20 feet, and then land on a lilly pad, the lilly pads will regrow. If you fall less than 20 feet, just keep falling, and you will get there eventually. "
+autowrap_mode = 2
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0

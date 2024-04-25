@@ -4,10 +4,10 @@
 [ext_resource type="Script" path="res://lily_pad_two_hop.gd" id="1_725pj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trow2"]
-size = Vector2(812, 138)
+size = Vector2(760, 138)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0iewx"]
-size = Vector2(763, 82)
+size = Vector2(727.5, 82)
 
 [sub_resource type="Animation" id="Animation_o3xm4"]
 length = 0.001
@@ -87,14 +87,16 @@ scale = Vector2(0.859906, 0.764535)
 texture = ExtResource("1_3svso")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-4.00003, 70)
+position = Vector2(5.00001, 70)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_trow2")
 one_way_collision = true
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-1, 13)
+position = Vector2(3.75001, 13)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_0iewx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

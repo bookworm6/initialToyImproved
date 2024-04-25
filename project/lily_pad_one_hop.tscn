@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cb8sskkm80i6c" path="res://lilyPad.png" id="2_v6oa0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lnncj"]
-size = Vector2(668, 146)
+size = Vector2(624.667, 146)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vw7jn"]
 size = Vector2(543.333, 105)
@@ -87,7 +87,7 @@ scale = Vector2(0.639824, 0.596364)
 texture = ExtResource("2_v6oa0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(6, 73)
+position = Vector2(-15.6667, 73)
 shape = SubResource("RectangleShape2D_lnncj")
 one_way_collision = true
 
