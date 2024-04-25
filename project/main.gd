@@ -79,5 +79,17 @@ func _on_win_button_pressed():
 	$CanvasLayer/Fader.show()
 	$AnimationPlayer.play("win_restart")
 
+
+
 func restart():
 	get_tree().reload_current_scene ( )
+
+func moveToCredits():
+	get_tree().change_scene_to_file("res://credits.tscn")
+
+
+
+
+func _on_credits_pressed():
+	$CanvasLayer/Fader.show()
+	$AnimationPlayer.play("switch_to_credits")

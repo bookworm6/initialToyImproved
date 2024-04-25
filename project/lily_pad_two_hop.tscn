@@ -88,7 +88,6 @@ texture = ExtResource("1_3svso")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(5.00001, 70)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_trow2")
 one_way_collision = true
 
@@ -96,7 +95,6 @@ one_way_collision = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(3.75001, 13)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_0iewx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
